@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os == 'ubuntu-latest' && 'ubuntu-22.04' || matrix.os == 'macos-latest' && matrix.pyversion == '3.9' && 'macos-15-intel' || matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -32,8 +32,6 @@ jobs:
         install_target: [ source, sdist ]
         exclude:
         # gh runner throws "Error: Version ${{ matrix.pyversion }} with arch arm64 not found"
-        - os: macos-latest
-          pyversion: "3.8"
         - os: macos-latest
           pyversion: "3.9"
 
@@ -69,7 +67,7 @@ jobs:
 
   linux-wheel-arch-test:
     name: Wheel architecture tests (${{ matrix.label }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
