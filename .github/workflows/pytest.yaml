@@ -47,6 +47,8 @@ jobs:
         exclude:
           - os: macos-latest
             pyversion: "3.9"
+    env:
+      PIP_CONSTRAINT: ${{ matrix.pyversion == '3.13t' && format('{0}/.github/constraints-py313t.txt', github.workspace) || '' }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v7

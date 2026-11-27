@@ -1,0 +1,3 @@
+# CPython 3.13t needs the last published compatible pydantic-core wheel.
+# Other interpreters keep the normal dependency resolution.
+pydantic==2.12.3

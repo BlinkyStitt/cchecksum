@@ -23,7 +23,8 @@ jobs:
         run: python3 .github/scripts/ci_changes.py
   build_wheels:
     name: Build wheels using cibuildwheel
-    runs-on: ${{ matrix.os }}
+    # Keep i686 networking on the compatible, supported Docker runner.
+    runs-on: ${{ matrix.os == 'ubuntu-latest' && matrix.cibw_archs_linux == 'i686' && 'ubuntu-24.04' || matrix.os }}
     strategy:
       fail-fast: false
       matrix:
